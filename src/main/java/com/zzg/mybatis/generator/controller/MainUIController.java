@@ -68,6 +68,8 @@ public class MainUIController extends BaseFXController {
     private TextField daoTargetProject;
     @FXML
     private TextField mapperName;
+	@FXML
+	private TextField mapperXmlName;
     @FXML
     private TextField projectFolderField;
     @FXML

@@ -28,6 +28,8 @@ public class GeneratorConfig {
 
 	private String mapperName;
 
+	private String mapperXmlName;
+
 	private String mappingXMLPackage;
 
 	private String mappingXMLTargetFolder;
@@ -66,7 +68,15 @@ public class GeneratorConfig {
 
     private boolean jsr310Support;
 
-    public boolean isJsr310Support() {
+	public String getMapperXmlName() {
+		return mapperXmlName;
+	}
+
+	public void setMapperXmlName(String mapperXmlName) {
+		this.mapperXmlName = mapperXmlName;
+	}
+
+	public boolean isJsr310Support() {
         return jsr310Support;
     }
 

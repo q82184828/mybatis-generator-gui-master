@@ -184,6 +184,14 @@ public class MybatisGeneratorBridge {
         serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
         serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
         context.addPluginConfiguration(serializablePluginConfiguration);
+		// 配置xml文件名
+		if (StringUtils.isNotBlank(generatorConfig.getMapperXmlName())) {
+			PluginConfiguration pluginConfiguration = new PluginConfiguration();
+			pluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.DefineXmlNamePlugin");
+			pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.DefineXmlNamePlugin");
+			context.addPluginConfiguration(pluginConfiguration);
+			tableConfig.addProperty("mapperXmlName", generatorConfig.getMapperXmlName() + ".xml");
+		}
         // toString, hashCode, equals插件
         if (generatorConfig.isNeedToStringHashcodeEquals()) {
             PluginConfiguration pluginConfiguration1 = new PluginConfiguration();
@@ -268,7 +276,10 @@ public class MybatisGeneratorBridge {
 		if (StringUtils.isNotEmpty(mappingXMLPackage)) {
 			sb.append(mappingXMLPackage.replace(".", "/")).append("/");
 		}
-		if (StringUtils.isNotEmpty(generatorConfig.getMapperName())) {
+		// 优先判断是否配置了xml文件名，用于删除原文件 @author:ChenFei
+		if(StringUtils.isNotEmpty(generatorConfig.getMapperXmlName())){
+			sb.append(generatorConfig.getMapperXmlName()).append(".xml");
+		} else if(StringUtils.isNotEmpty(generatorConfig.getMapperName())) {
 			sb.append(generatorConfig.getMapperName()).append(".xml");
 		} else {
 			sb.append(generatorConfig.getDomainObjectName()).append("Mapper.xml");
