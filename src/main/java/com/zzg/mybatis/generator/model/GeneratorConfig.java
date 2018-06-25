@@ -26,9 +26,21 @@ public class GeneratorConfig {
 
 	private String daoTargetFolder;
 
+	private String servicePackage;
+
+	private String serviceTargetFolder;
+
+	private String serviceImplPackage;
+
+	private String serviceImplTargetFolder;
+
 	private String mapperName;
 
 	private String mapperXmlName;
+
+	private String serviceName;
+
+	private String serviceImplName;
 
 	private String mappingXMLPackage;
 
@@ -67,6 +79,54 @@ public class GeneratorConfig {
     private boolean useSchemaPrefix;
 
     private boolean jsr310Support;
+
+	public String getServiceImplName() {
+		return serviceImplName;
+	}
+
+	public void setServiceImplName(String serviceImplName) {
+		this.serviceImplName = serviceImplName;
+	}
+
+	public String getServiceImplPackage() {
+		return serviceImplPackage;
+	}
+
+	public void setServiceImplPackage(String serviceImplPackage) {
+		this.serviceImplPackage = serviceImplPackage;
+	}
+
+	public String getServiceImplTargetFolder() {
+		return serviceImplTargetFolder;
+	}
+
+	public void setServiceImplTargetFolder(String serviceImplTargetFolder) {
+		this.serviceImplTargetFolder = serviceImplTargetFolder;
+	}
+
+	public String getServicePackage() {
+		return servicePackage;
+	}
+
+	public void setServicePackage(String servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public String getServiceTargetFolder() {
+		return serviceTargetFolder;
+	}
+
+	public void setServiceTargetFolder(String serviceTargetFolder) {
+		this.serviceTargetFolder = serviceTargetFolder;
+	}
 
 	public String getMapperXmlName() {
 		return mapperXmlName;

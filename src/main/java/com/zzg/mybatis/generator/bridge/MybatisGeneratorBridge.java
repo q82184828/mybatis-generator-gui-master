@@ -158,6 +158,10 @@ public class MybatisGeneratorBridge {
         daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
         daoConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getDaoTargetFolder());
 
+        context.addProperty("serviceTargetPackage", generatorConfig.getServicePackage());
+        context.addProperty("serviceName", generatorConfig.getServiceName());
+		context.addProperty("serviceImplTargetPackage", generatorConfig.getServiceImplPackage());
+		context.addProperty("serviceImplName", generatorConfig.getServiceImplName());
 
         context.setId("myid");
         context.addTableConfiguration(tableConfig);
@@ -184,6 +188,16 @@ public class MybatisGeneratorBridge {
         serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
         serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
         context.addPluginConfiguration(serializablePluginConfiguration);
+        //添加service接口
+		PluginConfiguration servicePluginConfiguration = new PluginConfiguration();
+		servicePluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.ServiceInterfacePlugin");
+		servicePluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.ServiceInterfacePlugin");
+		context.addPluginConfiguration(servicePluginConfiguration);
+		//添加serviceImpl实现
+		PluginConfiguration serviceImplPluginConfiguration = new PluginConfiguration();
+		serviceImplPluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.ServiceImplPlugin");
+		serviceImplPluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.ServiceImplPlugin");
+		context.addPluginConfiguration(serviceImplPluginConfiguration);
 		// 配置xml文件名
 		if (StringUtils.isNotBlank(generatorConfig.getMapperXmlName())) {
 			PluginConfiguration pluginConfiguration = new PluginConfiguration();

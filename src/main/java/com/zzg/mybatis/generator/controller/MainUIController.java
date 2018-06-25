@@ -55,6 +55,10 @@ public class MainUIController extends BaseFXController {
     @FXML
     private TextField daoTargetPackage;
     @FXML
+    private TextField serviceTargetPackage;
+	@FXML
+	private TextField serviceImplTargetPackage;
+    @FXML
     private TextField tableNameField;
     @FXML
     private TextField domainObjectNameField;
@@ -66,8 +70,16 @@ public class MainUIController extends BaseFXController {
     private TextField mappingTargetProject;
     @FXML
     private TextField daoTargetProject;
+	@FXML
+	private TextField serviceTargetProject;
+	@FXML
+	private TextField serviceImplTargetProject;
     @FXML
     private TextField mapperName;
+	@FXML
+	private TextField serviceName;
+	@FXML
+	private TextField serviceImplName;
 	@FXML
 	private TextField mapperXmlName;
     @FXML
@@ -297,7 +309,7 @@ public class MainUIController extends BaseFXController {
 		if (StringUtils.isEmpty(domainObjectNameField.getText()))  {
 			return "类名不能为空";
 		}
-		if (StringUtils.isAnyEmpty(modelTargetPackage.getText(), mapperTargetPackage.getText(), daoTargetPackage.getText())) {
+		if (StringUtils.isAnyEmpty(modelTargetPackage.getText(), mapperTargetPackage.getText(), daoTargetPackage.getText(), serviceTargetPackage.getText())) {
 			return "包名不能为空";
 		}
 
@@ -335,7 +347,14 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setModelPackageTargetFolder(modelTargetProject.getText());
         generatorConfig.setDaoPackage(daoTargetPackage.getText());
         generatorConfig.setDaoTargetFolder(daoTargetProject.getText());
+		generatorConfig.setServicePackage(serviceTargetPackage.getText());
+        generatorConfig.setServiceTargetFolder(serviceTargetProject.getText());
+		generatorConfig.setServiceImplPackage(serviceImplTargetPackage.getText());
+		generatorConfig.setServiceImplTargetFolder(serviceImplTargetProject.getText());
         generatorConfig.setMapperName(mapperName.getText());
+		generatorConfig.setMapperXmlName(mapperXmlName.getText());
+        generatorConfig.setServiceName(serviceName.getText());
+        generatorConfig.setServiceImplName(serviceImplName.getText());
         generatorConfig.setMappingXMLPackage(mapperTargetPackage.getText());
         generatorConfig.setMappingXMLTargetFolder(mappingTargetProject.getText());
         generatorConfig.setTableName(tableNameField.getText());
@@ -364,6 +383,8 @@ public class MainUIController extends BaseFXController {
         modelTargetProject.setText(generatorConfig.getModelPackageTargetFolder());
         daoTargetPackage.setText(generatorConfig.getDaoPackage());
         daoTargetProject.setText(generatorConfig.getDaoTargetFolder());
+		serviceTargetPackage.setText(generatorConfig.getServicePackage());
+		serviceTargetProject.setText(generatorConfig.getServiceTargetFolder());
         mapperTargetPackage.setText(generatorConfig.getMappingXMLPackage());
         mappingTargetProject.setText(generatorConfig.getMappingXMLTargetFolder());
         encodingChoice.setValue(generatorConfig.getEncoding());
