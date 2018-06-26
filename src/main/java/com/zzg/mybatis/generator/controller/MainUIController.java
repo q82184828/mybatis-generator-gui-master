@@ -215,7 +215,10 @@ public class MainUIController extends BaseFXController {
                         this.tableName = tableName;
                         tableNameField.setText(tableName);
                         domainObjectNameField.setText(MyStringUtils.dbStringToCamelStyle(tableName));
-                        mapperName.setText(domainObjectNameField.getText().concat("DAO"));
+                        mapperName.setText(domainObjectNameField.getText().concat("Dao"));
+						serviceName.setText(domainObjectNameField.getText().concat("Service"));
+						serviceImplName.setText(domainObjectNameField.getText().concat("ServiceImpl"));
+						mapperXmlName.setText(domainObjectNameField.getText().concat("Mapper"));
                     }
                 }
             });
@@ -385,6 +388,8 @@ public class MainUIController extends BaseFXController {
         daoTargetProject.setText(generatorConfig.getDaoTargetFolder());
 		serviceTargetPackage.setText(generatorConfig.getServicePackage());
 		serviceTargetProject.setText(generatorConfig.getServiceTargetFolder());
+		serviceImplTargetPackage.setText(generatorConfig.getServiceImplPackage());
+		serviceImplTargetProject.setText(generatorConfig.getServiceImplTargetFolder());
         mapperTargetPackage.setText(generatorConfig.getMappingXMLPackage());
         mappingTargetProject.setText(generatorConfig.getMappingXMLTargetFolder());
         encodingChoice.setValue(generatorConfig.getEncoding());
