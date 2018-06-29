@@ -75,7 +75,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("updateByPrimaryKey");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(primaryKeyJavaType);
+		method.setReturnType(new FullyQualifiedJavaType("int"));
 		return method;
 	}
 
@@ -83,14 +83,14 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("updateByPrimaryKeySelective");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(primaryKeyJavaType);
+		method.setReturnType(new FullyQualifiedJavaType("int"));
 		return method;
 	}
 
 	private Method selectByPrimaryKeyMethod() {
 		Method method = new Method();
 		method.setName("selectByPrimaryKey");
-		method.addParameter(new Parameter(new FullyQualifiedJavaType("Integer"), "id"));
+		method.addParameter(new Parameter(primaryKeyJavaType, "id"));
 		method.setReturnType(new FullyQualifiedJavaType(modelDir));
 		return method;
 	}
@@ -99,7 +99,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("insertSelective");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(primaryKeyJavaType);
+		method.setReturnType(new FullyQualifiedJavaType("int"));
 		return method;
 	}
 
@@ -107,15 +107,15 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("insert");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(primaryKeyJavaType);
+		method.setReturnType(new FullyQualifiedJavaType("int"));
 		return method;
 	}
 
 	private Method deleteMethod(){
 		Method method = new Method();
 		method.setName("deleteByPrimaryKey");
-		method.addParameter(new Parameter(new FullyQualifiedJavaType("Integer"), "id"));
-		method.setReturnType(primaryKeyJavaType);
+		method.addParameter(new Parameter(primaryKeyJavaType, "id"));
+		method.setReturnType(new FullyQualifiedJavaType("int"));
 		return method;
 	}
 }

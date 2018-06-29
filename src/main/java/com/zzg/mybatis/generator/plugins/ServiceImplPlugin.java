@@ -25,6 +25,8 @@ public class ServiceImplPlugin extends PluginAdapter {
 	 */
 	private String modelImportDir;
 
+	private FullyQualifiedJavaType primaryKeyJavaType;
+
 	public ServiceImplPlugin() {
 		shellCallback = new DefaultShellCallback(false);
 	}
@@ -43,7 +45,7 @@ public class ServiceImplPlugin extends PluginAdapter {
 		String serviceTargetPackage = context.getProperty("serviceImplTargetPackage");
 		String serviceName = context.getProperty("serviceImplName");
 		modelImportDir = context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + introspectedTable.getTableConfiguration().getDomainObjectName();
-
+		primaryKeyJavaType = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
 		TopLevelClass serviceImplClass = new TopLevelClass(serviceTargetPackage + "." + serviceName);
 		GeneratedJavaFile mapperJavafile = null;
 		if (stringHasValue(serviceName)) {
@@ -95,7 +97,7 @@ public class ServiceImplPlugin extends PluginAdapter {
 	private Method deleteMethod(String daoName) {
 		Method method = new Method();
 		method.setName("deleteByPrimaryKey");
-		method.addParameter(new Parameter(new FullyQualifiedJavaType("Integer"), "id"));
+		method.addParameter(new Parameter(primaryKeyJavaType, "id"));
 		method.setReturnType(new FullyQualifiedJavaType("int"));
 		method.addAnnotation("@Override");
 		method.setVisibility(JavaVisibility.PUBLIC);
@@ -128,7 +130,7 @@ public class ServiceImplPlugin extends PluginAdapter {
 	private Method selectByPrimaryKeyMethod(String daoName) {
 		Method method = new Method();
 		method.setName("selectByPrimaryKey");
-		method.addParameter(new Parameter(new FullyQualifiedJavaType("Integer"), "id"));
+		method.addParameter(new Parameter(primaryKeyJavaType, "id"));
 		method.setReturnType(new FullyQualifiedJavaType(modelImportDir));
 		method.addAnnotation("@Override");
 		method.setVisibility(JavaVisibility.PUBLIC);
