@@ -21,6 +21,8 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 
 	private String modelDir;
 
+	private FullyQualifiedJavaType primaryKeyJavaType;
+
 	private ShellCallback shellCallback = null;
 
 	public ServiceInterfacePlugin() {
@@ -40,6 +42,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		String serviceTargetPackage = context.getProperty("serviceTargetPackage");
 		String serviceName = context.getProperty("serviceName");
 		modelDir = context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + introspectedTable.getTableConfiguration().getDomainObjectName();
+		primaryKeyJavaType = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
 		Interface mapperInterface = new Interface(serviceTargetPackage + "." + serviceName);
 		GeneratedJavaFile mapperJavafile = null;
 		if (stringHasValue(serviceName)) {
@@ -72,7 +75,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("updateByPrimaryKey");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(new FullyQualifiedJavaType("int"));
+		method.setReturnType(primaryKeyJavaType);
 		return method;
 	}
 
@@ -80,7 +83,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("updateByPrimaryKeySelective");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(new FullyQualifiedJavaType("int"));
+		method.setReturnType(primaryKeyJavaType);
 		return method;
 	}
 
@@ -96,7 +99,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("insertSelective");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(new FullyQualifiedJavaType("int"));
+		method.setReturnType(primaryKeyJavaType);
 		return method;
 	}
 
@@ -104,7 +107,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("insert");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType(modelDir), "record"));
-		method.setReturnType(new FullyQualifiedJavaType("int"));
+		method.setReturnType(primaryKeyJavaType);
 		return method;
 	}
 
@@ -112,7 +115,7 @@ public class ServiceInterfacePlugin extends PluginAdapter {
 		Method method = new Method();
 		method.setName("deleteByPrimaryKey");
 		method.addParameter(new Parameter(new FullyQualifiedJavaType("Integer"), "id"));
-		method.setReturnType(new FullyQualifiedJavaType("int"));
+		method.setReturnType(primaryKeyJavaType);
 		return method;
 	}
 }
